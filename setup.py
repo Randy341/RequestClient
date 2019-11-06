@@ -1,7 +1,7 @@
 from distutils.core import setup
 setup(
     name="RequestClient",
-    package=["RequestClient"],
+    packages=["RequestClient"],
     version="0.1.0",
     license="MIT",
     description="Easy-to-use and convenient request wrapper that saves coding time",
