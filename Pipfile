@@ -9,6 +9,7 @@ verify_ssl = true
 requests = "*"
 lxml = "*"
 pydash = "*"
+twine = "*"
 
 [requires]
 python_version = "3.7"
