@@ -1,5 +1,5 @@
 ##  Request Client 
-An easy-to-use and convenience Python3 library for HTTP REST API Request
+An easy-to-use and convenient Python3 library for HTTP REST API Request
 This library is a wrapper around Python request library
 
 Currently supports Rest API method:

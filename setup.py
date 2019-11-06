@@ -4,11 +4,11 @@ setup(
     package=["RequestClient"],
     version="0.1.0",
     license="MIT",
-    description="Easy-to-use request wrapper that saves coding time",
+    description="Easy-to-use and convenient request wrapper that saves coding time",
     author="Randy Chang",
     author_email="randy@randy-chang.com",
     url="https://github.com/Randy341/RequestClient",
-    download_url="",
+    download_url="https://github.com/Randy341/RequestClient/archive/0.1.0.tar.gz",
     keywords=["requests","HTTP","wrapper", "client"],
     install_requires=["requests","pydash"],
     classifiers=[
