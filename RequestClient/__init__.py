@@ -1,1 +1,2 @@
-from RequestClient.RequestClient import RestRequestClient
+from RequestClient.RestRequestClient import RestRequestClient
+from RequestClient.GraphQLClient import GraphQLClient
