@@ -11,6 +11,8 @@ import requests
 import pydash
 import re
 from collections import namedtuple
+import logging
+import os
 
 class ResponseConvertionError(Exception):
     def __init__(self, message):
@@ -93,6 +95,18 @@ class RestRequestClient():
         if defaultAuth:
             self.session.auth = defaultAuth
 
+        self.log(f"Request Client Object created.  BaseURL: {self.baseUrl}. SSL Verification: {self.sslverify}.  Raise Exception: {self.raiseException}. Session detail: {self.session.__dict__}")
+
+    #Logging function
+    def log(self, msg):
+        if "RequestClientLogging" in os.environ and bool(os.environ["RequestClientLogging"]):
+            logging.getLogger().info(msg)
+
+    def log_action(self, action, response):
+        self.log(f"==Request Client {action} Request==")
+        self.log(f"Request Object: {response.request.__dict__}")
+        self.log(f"Response Object: {response.__dict__}")
+
     # @Function: Post Request using json payload via app server
     # @param api:   the api routes after base uri
     # @param payload: json payload.  Typically Python dictionary with json.dumps()
@@ -114,6 +128,7 @@ class RestRequestClient():
             parameters["auth"] = auth
 
         response = self.session.post(**parameters)
+        self.log_action("POST", response)
         return response
 
     # @Function: Get Request via app server
@@ -131,6 +146,7 @@ class RestRequestClient():
             parameters["auth"] = auth
 
         response = requests.get(**parameters)
+        self.log_action("GET", response)
         return response
 
     # @Function: Delete Request via app server
@@ -148,6 +164,7 @@ class RestRequestClient():
             parameters["auth"] = auth
 
         response = requests.delete(**parameters)
+        self.log_action("DELETE", response)
         return response
 
     def _check_response(self, res):

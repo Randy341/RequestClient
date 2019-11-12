@@ -1,14 +1,20 @@
 from distutils.core import setup
+
+with open('README.md') as f:
+    long_description = f.read()
+
 setup(
     name="RequestClient",
     packages=["RequestClient"],
-    version="0.2.0",
+    version="0.3.0",
     license="MIT",
     description="Easy-to-use and convenient request wrapper that saves coding time. For Rest Request and GraphQL request",
+    long_description=long_description,
+    long_description_content_type='text/markdown',
     author="Randy Chang",
     author_email="randy@randy-chang.com",
     url="https://github.com/Randy341/RequestClient",
-    download_url="https://github.com/Randy341/RequestClient/archive/0.2.0.tar.gz",
+    download_url="https://github.com/Randy341/RequestClient/archive/0.3.0.tar.gz",
     keywords=["requests","HTTP","wrapper", "client", "REST", "GraphQL"],
     install_requires=["requests","pydash", "gql"],
     classifiers=[
