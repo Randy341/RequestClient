@@ -145,7 +145,7 @@ class RestRequestClient():
         if auth:
             parameters["auth"] = auth
 
-        response = requests.get(**parameters)
+        response = self.session.get(**parameters)
         self.log_action("GET", response)
         return response
 
@@ -163,7 +163,7 @@ class RestRequestClient():
         if auth:
             parameters["auth"] = auth
 
-        response = requests.delete(**parameters)
+        response = self.session.delete(**parameters)
         self.log_action("DELETE", response)
         return response
 
