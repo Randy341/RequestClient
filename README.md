@@ -1,6 +1,6 @@
 ##  Request Client 
-An easy-to-use and convenient Python3 library for HTTP REST API request and GraphQL request.
-This library is a wrapper around Python request library and the original GQL library.   
+An easy-to-use and convenient Python3 library for HTTP REST API request.
+This library is a wrapper around Python request library.   
 
 Currently supports Rest API method:
 - Get
