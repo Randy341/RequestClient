@@ -111,7 +111,7 @@ class RestRequestClient():
     # @param api:   the api routes after base uri
     # @param payload: json payload.  Typically Python dictionary with json.dumps()
     # @Return:  raw response object
-    def _send_x_post(self, api, payload, headers, params, cookies, auth):
+    def _send_x_post(self, api, payload, headers, params, cookies, auth, genericParameters):
         parameters = {
             "url": re.sub(r"(?<!:)/+", "/", f"{self.baseUrl}/{api}"),   #remove duplicate /
             "headers": headers,
@@ -126,7 +126,7 @@ class RestRequestClient():
 
         if auth:
             parameters["auth"] = auth
-
+        pydash.merge(parameters, genericParameters)
         response = self.session.post(**parameters)
         self.log_action("POST", response)
         return response
@@ -134,7 +134,7 @@ class RestRequestClient():
     # @Function: Get Request via app server
     # @param api:   the api routes after base uri
     # @Return:  Raw response object
-    def _send_x_get(self, api, headers, params, cookies, auth):
+    def _send_x_get(self, api, headers, params, cookies, auth, genericParameters):
         parameters = {
             "url": re.sub(r"(?<!:)/+", "/", f"{self.baseUrl}/{api}"),
             "headers": headers,
@@ -144,7 +144,7 @@ class RestRequestClient():
         }
         if auth:
             parameters["auth"] = auth
-
+        pydash.merge(parameters, genericParameters)
         response = self.session.get(**parameters)
         self.log_action("GET", response)
         return response
@@ -152,7 +152,7 @@ class RestRequestClient():
     # @Function: Delete Request via app server
     # @param api:   the api routes after base uri
     # @Return:  Raw response object
-    def _send_x_delete(self, api, headers, params, cookies, auth):
+    def _send_x_delete(self, api, headers, params, cookies, auth, genericParameters):
         parameters = {
             "url": re.sub(r"(?<!:)/+", "/", f"{self.baseUrl}/{api}"),
             "headers": headers,
@@ -162,7 +162,7 @@ class RestRequestClient():
         }
         if auth:
             parameters["auth"] = auth
-
+        pydash.merge(parameters, genericParameters)
         response = self.session.delete(**parameters)
         self.log_action("DELETE", response)
         return response
@@ -175,29 +175,29 @@ class RestRequestClient():
     # @param api:   the api routes after CBSP partner ID (e.g. /inquiry/reward/calculator)
     # @param payload: json payload.  Typically Python dictionary with json.dumps()
     # @Return:  raw response object
-    def post(self, api, payload, additionalHeaders={}, params={}, cookies={}, auth=None):
+    def post(self, api, payload, additionalHeaders={}, params={}, cookies={}, auth=None, genericParameters={}):
         headers = {"Content-Type": "application/json", "Accept": "application/json"}
         pydash.merge(headers, additionalHeaders)
-        response = self._send_x_post(api, payload, headers, params, cookies, auth)
+        response = self._send_x_post(api, payload, headers, params, cookies, auth, genericParameters)
         self._check_response(response)
         return Response(response)
 
     # @Function:Get Request for json payload
     # @param api:   the api routes after base uri
     # @Return:  Raw response object
-    def get(self, api, additionalHeaders={}, params={}, cookies={}, auth=None):
+    def get(self, api, additionalHeaders={}, params={}, cookies={}, auth=None, genericParameters={}):
         headers = {"Content-Type": "application/json", "Accept": "application/json"}
         pydash.merge(headers, additionalHeaders)
-        response = self._send_x_get(api, headers, params, cookies, auth)
+        response = self._send_x_get(api, headers, params, cookies, auth, genericParameters)
         self._check_response(response)
         return Response(response)
 
     # @Function: X-Admin Delete Request, json payloads
     # @param api:   the api routes after base uri
     # @Return:  Raw response object
-    def delete(self, api, additionalHeaders={}, params={}, cookies={}, auth=None):
+    def delete(self, api, additionalHeaders={}, params={}, cookies={}, auth=None, genericParameters={}):
         headers = {"Content-Type": "application/json", "Accept": "application/json"}
         pydash.merge(headers, additionalHeaders)
-        response = self._send_x_delete(api, headers, params, cookies, auth)
+        response = self._send_x_delete(api, headers, params, cookies, auth, genericParameters)
         self._check_response(response)
         return Response(response)
